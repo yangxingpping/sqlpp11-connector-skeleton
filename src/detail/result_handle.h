@@ -30,21 +30,23 @@
 
 //#include <skeleton/skeleton.h>
 
+#include "otl/otlv4.h"
+
 namespace sqlpp
 {
 	namespace skeleton
 	{
 		// FIXME
-		using SKELETON_RES = void;
+		using SKELETON_RES = std::shared_ptr<otl_stream>;
 
 		namespace detail
 		{
 			struct result_handle
 			{
-				SKELETON_RES* skeleton_res;
+				SKELETON_RES skeleton_res;
 				bool debug;
 
-				result_handle(SKELETON_RES* res, bool debug_):
+				result_handle(SKELETON_RES res, bool debug_):
 					skeleton_res(res),
 					debug(debug_)
 				{}
@@ -61,7 +63,7 @@ namespace sqlpp
 
 				bool operator!() const
 				{
-					return !skeleton_res;
+					return skeleton_res==nullptr;
 				}
 			};
 		}

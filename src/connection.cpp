@@ -49,7 +49,10 @@ namespace sqlpp
 
 		char_result_t connection::select_impl(const std::string& statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			auto _stream = std::make_shared<otl_stream>(50, statement.c_str(), _handle->_db, otl_explicit_select, "");
+            std::unique_ptr<detail::result_handle> result_handle(
+                new detail::result_handle(_stream, _handle->_conf.debug));
+            return { std::move(result_handle) };
 		}
 
 		bind_result_t connection::run_prepared_select_impl(prepared_statement_t& prepared_statement)
