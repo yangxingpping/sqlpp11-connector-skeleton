@@ -38,12 +38,23 @@ namespace skeleton = sqlpp::skeleton;
 int main()
 {
 	skeleton::connection_config config{};
- 	config.user = "root";
- 	config.database = "sqlpp_sample";
+ 	config.user = "";
+ 	config.database = "demo_sqlite";
 	config.debug = true;
 	try
 	{
 		skeleton::connection db(config);
+        db.execute(R"(DROP TABLE IF EXISTS tab_sample)");
+        db.execute(R"(CREATE TABLE tab_sample (
+			alpha bigint(20)  ,
+			beta varchar(255) DEFAULT NULL,
+			gamma bool DEFAULT NULL,
+			PRIMARY KEY (alpha)
+			))");
+        db.execute(R"(DROP TABLE IF EXISTS tab_foo)");
+        db.execute(R"(CREATE TABLE tab_foo (
+		omega bigint(20) DEFAULT NULL
+			))");
 	}
 	catch(const sqlpp::exception& )
 	{
