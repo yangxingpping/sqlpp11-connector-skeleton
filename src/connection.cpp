@@ -74,7 +74,10 @@ namespace sqlpp
 
 		prepared_statement_t connection::prepare_impl(const std::string& statement, size_t no_of_parameters, size_t no_of_columns)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			auto _stream = std::make_shared<otl_stream>(50, statement.c_str(), _handle->_db,  otl_explicit_select, "");
+
+			return { std::unique_ptr<detail::prepared_statement_handle_t>(
+				new detail::prepared_statement_handle_t(_stream, no_of_parameters, no_of_columns, true)) };
 		}
 
 		size_t connection::insert_impl(const std::string& statement)

@@ -39,19 +39,19 @@ namespace sqlpp
 	namespace skeleton
 	{
 		// FIXME
-		using SKELETON_STMT = otl_stream;
+		using SKELETON_STMT = std::shared_ptr<otl_stream>;
 
 		namespace detail
 		{
 			struct prepared_statement_handle_t
 			{
-				SKELETON_STMT* _skeleton_stmt;
+				SKELETON_STMT _skeleton_stmt;
 				bool _debug;
 
 				size_t _no_params;
 				size_t _no_columns;
 
-				prepared_statement_handle_t(SKELETON_STMT* stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_);
+				prepared_statement_handle_t(SKELETON_STMT stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_);
 				prepared_statement_handle_t(const prepared_statement_handle_t&) = delete;
 				prepared_statement_handle_t(prepared_statement_handle_t&&) = default;
 				prepared_statement_handle_t& operator=(const prepared_statement_handle_t&) = delete;
@@ -59,11 +59,11 @@ namespace sqlpp
 
 				~prepared_statement_handle_t()
 				{
-					if(_skeleton_stmt)
-					{
-						delete _skeleton_stmt;
-						_skeleton_stmt = nullptr;
-					}
+                    /*if(_skeleton_stmt)
+                    {
+                        delete _skeleton_stmt;
+                        _skeleton_stmt = nullptr;
+                    }*/
 				}
 
 				bool operator!() const
@@ -72,7 +72,7 @@ namespace sqlpp
 				}
 			};
 
-            prepared_statement_handle_t::prepared_statement_handle_t(SKELETON_STMT* stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_)
+            prepared_statement_handle_t::prepared_statement_handle_t(SKELETON_STMT stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_)
             {
 				assert(stmt);
 				_skeleton_stmt = stmt;
