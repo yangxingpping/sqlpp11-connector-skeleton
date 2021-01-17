@@ -27,6 +27,7 @@
 #ifndef SQLPP_SKELETON_CHAR_RESULT_ROW_H
 #define SQLPP_SKELETON_CHAR_RESULT_ROW_H
 
+#include <iso646.h>
 
 namespace sqlpp
 {

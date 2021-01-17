@@ -47,7 +47,14 @@ namespace sqlpp
 
 		void bind_result_t::_bind_boolean_result(size_t index, signed char* value, bool* is_null)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            if (_handle->_debug)
+                std::cerr << "odbc debug: binding boolean result " << *value << " at index: " << index << std::endl;
+
+			*(_handle->_skeleton_stmt) >> (char*)value;
+			if(_handle->_skeleton_stmt->is_null())
+			{
+				*is_null = true;
+			}
 		}
 
 		void bind_result_t::_bind_integral_result(size_t index, int64_t* value, bool* is_null)

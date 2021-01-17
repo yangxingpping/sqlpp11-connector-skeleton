@@ -30,12 +30,16 @@
 
 //#include <skeleton/skeleton.h>
 
+#include <assert.h>
+
+#include "otl/otlv4.h"
+
 namespace sqlpp
 {
 	namespace skeleton
 	{
 		// FIXME
-		using SKELETON_STMT = void;
+		using SKELETON_STMT = otl_stream;
 
 		namespace detail
 		{
@@ -44,7 +48,9 @@ namespace sqlpp
 				SKELETON_STMT* _skeleton_stmt;
 				bool _debug;
 
-				// FIXME
+				size_t _no_params;
+				size_t _no_columns;
+
 				prepared_statement_handle_t(SKELETON_STMT* stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_);
 				prepared_statement_handle_t(const prepared_statement_handle_t&) = delete;
 				prepared_statement_handle_t(prepared_statement_handle_t&&) = default;
@@ -53,7 +59,11 @@ namespace sqlpp
 
 				~prepared_statement_handle_t()
 				{
-					// FIXME
+					if(_skeleton_stmt)
+					{
+						delete _skeleton_stmt;
+						_skeleton_stmt = nullptr;
+					}
 				}
 
 				bool operator!() const
@@ -61,7 +71,17 @@ namespace sqlpp
 					return !_skeleton_stmt;
 				}
 			};
-		}
+
+            prepared_statement_handle_t::prepared_statement_handle_t(SKELETON_STMT* stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_)
+            {
+				assert(stmt);
+				_skeleton_stmt = stmt;
+				_debug = debug_;
+				_no_params = no_of_parameters;
+				_no_columns = no_of_columns;
+            }
+
+        }
 	}
 }
 

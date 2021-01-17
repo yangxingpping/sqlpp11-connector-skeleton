@@ -32,15 +32,21 @@
 
 #include "otl/otlv4.h"
 
+#include <mutex>
+
+
+
 namespace sqlpp
 {
 	namespace skeleton
 	{
 		namespace detail
 		{
+			std::once_flag _otl_init_flag;
 			connection_handle_t::connection_handle_t(connection_config conf)
 				:_conf(conf)
 			{
+				std::call_once(_otl_init_flag, &otl_connect::otl_initialize, 1);
 				_db.rlogon(conf.user.c_str(), conf.password.c_str(), conf.database.c_str(), 1);
 			}
 

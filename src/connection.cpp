@@ -39,7 +39,7 @@ namespace sqlpp
 		connection::connection(connection_config config):
 			_handle(new detail::connection_handle_t(config))
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			
 		}
 
 		connection::~connection()
