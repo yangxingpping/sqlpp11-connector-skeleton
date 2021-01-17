@@ -44,17 +44,26 @@ int main()
 	try
 	{
 		skeleton::connection db(config);
-        db.execute(R"(DROP TABLE IF EXISTS tab_sample)");
+
+        const auto tab = hhhhh::TabBar();
+        db(insert_into(tab).set(tab.gamma = true, tab.beta = "world3"));
+
+        for(const auto& row : db(select(all_of(tab)).from(tab).unconditionally()))
+        {
+            std::cerr << "row.alpha: " << row.alpha << ", row.beta: " << row.beta << ", row.gamma: " << row.gamma << std::endl;
+        }
+
+        /*db.execute(R"(DROP TABLE IF EXISTS tab_sample)");
         db.execute(R"(CREATE TABLE tab_sample (
-			alpha bigint(20)  ,
-			beta varchar(255) DEFAULT NULL,
-			gamma bool DEFAULT NULL,
-			PRIMARY KEY (alpha)
-			))");
+            alpha bigint(20)  ,
+            beta varchar(255) DEFAULT NULL,
+            gamma bool DEFAULT NULL,
+            PRIMARY KEY (alpha)
+            ))");
         db.execute(R"(DROP TABLE IF EXISTS tab_foo)");
         db.execute(R"(CREATE TABLE tab_foo (
-		omega bigint(20) DEFAULT NULL
-			))");
+        omega bigint(20) DEFAULT NULL
+            ))");*/
 	}
 	catch(const sqlpp::exception& )
 	{

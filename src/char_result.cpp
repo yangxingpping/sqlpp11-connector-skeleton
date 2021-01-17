@@ -30,6 +30,7 @@
 #include "detail/result_handle.h"
 
 #include <string>
+#include <assert.h>
 
 
 namespace sqlpp
@@ -55,8 +56,56 @@ namespace sqlpp
 
 		bool char_result_t::next_impl()
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            bool bret = true;
+            if(_handle->skeleton_res->eof())
+            {
+                bret = false;
+            }
+            return bret;
 		}
+
+        void char_result_t::_bind_integral_result(size_t index, int64_t* value, bool* is_null)
+        {
+			assert(value && is_null);
+			*(_handle->skeleton_res) >> *value;
+		
+			if(_handle->skeleton_res->is_null())
+			{
+				*is_null = true;
+			}
+        }
+
+        void char_result_t::_bind_boolean_result(size_t index, signed char* value, bool* is_null)
+        {
+            assert(value && is_null);
+            *(_handle->skeleton_res) >> *value;
+
+            if (_handle->skeleton_res->is_null())
+            {
+                *is_null = true;
+            }
+        }
+
+        void char_result_t::_bind_floating_point_result(size_t index, double* value, bool* is_null)
+        {
+            assert(value && is_null);
+            *(_handle->skeleton_res) >> *value;
+
+            if (_handle->skeleton_res->is_null())
+            {
+                *is_null = true;
+            }
+        }
+
+        void char_result_t::_bind_text_result(size_t index, const char** value, size_t* len)
+        {
+            *(_handle->skeleton_res) >> (char*)*value;
+
+            if (_handle->skeleton_res->is_null())
+            {
+               
+            }
+        }
 
 	}
 }
