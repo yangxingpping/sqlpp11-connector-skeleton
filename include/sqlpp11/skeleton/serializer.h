@@ -27,7 +27,7 @@
 #ifndef SQLPP_SKELETON_SERIALIZER_H
 #define SQLPP_SKELETON_SERIALIZER_H
 
-#include <sqlpp11/concat.h>
+//#include <sqlpp11/concat.h>
 #include <sqlpp11/insert_value_list.h>
 
 namespace sqlpp
