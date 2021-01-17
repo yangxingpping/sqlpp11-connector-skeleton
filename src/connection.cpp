@@ -36,6 +36,17 @@ namespace sqlpp
 {
 	namespace skeleton
 	{
+
+        void execute_prepared_statement(detail::prepared_statement_handle_t& prepared_statement)
+        {
+            
+        }
+
+        void execute_statement(detail::connection_handle_t& handle, const std::string& statement)
+        {
+            
+        }
+
 		connection::connection(connection_config config):
 			_handle(new detail::connection_handle_t(config))
 		{
@@ -57,22 +68,26 @@ namespace sqlpp
 
 		bind_result_t connection::run_prepared_select_impl(prepared_statement_t& prepared_statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_prepared_statement(*prepared_statement._handle);
+            return prepared_statement._handle;
 		}
 
 		size_t connection::run_prepared_insert_impl(prepared_statement_t& prepared_statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_prepared_statement(*prepared_statement._handle);
+			return 0; //fix me
 		}
 
 		size_t connection::run_prepared_update_impl(prepared_statement_t& prepared_statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_prepared_statement(*prepared_statement._handle);
+			return 0; //fix me
 		}
 
 		size_t connection::run_prepared_remove_impl(prepared_statement_t& prepared_statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_prepared_statement(*prepared_statement._handle);
+			return 0; //fix me
 		}
 
 		prepared_statement_t connection::prepare_impl(const std::string& statement, size_t no_of_parameters, size_t no_of_columns)
@@ -85,47 +100,50 @@ namespace sqlpp
 
 		size_t connection::insert_impl(const std::string& statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			execute_statement(*_handle, statement);
+            return 0; //fix me
 		}
 
 		void connection::execute(const std::string& command)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			execute_statement(*_handle, command);
 		}
 
 		size_t connection::update_impl(const std::string& statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_statement(*_handle, statement);
+            return 0; //fix me
 		}
 
 		size_t connection::remove_impl(const std::string& statement)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            execute_statement(*_handle, statement);
+            return 0; //fix me
 		}
 
 		std::string connection::escape(const std::string& s) const
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			return s; //fix me
 		}
 
 		void connection::start_transaction()
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			//fix me
 		}
 
 		void connection::commit_transaction()
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			//fix me
 		}
 
 		void connection::rollback_transaction(bool report)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			//fix me
 		}
 
 		void connection::report_rollback_failure(const std::string message) noexcept
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			//fix me
 		}
 	}
 }
