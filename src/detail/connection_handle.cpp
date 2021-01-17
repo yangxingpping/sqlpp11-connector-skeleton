@@ -39,8 +39,9 @@ namespace sqlpp
 		namespace detail
 		{
 			connection_handle_t::connection_handle_t(connection_config conf)
+				:_conf(conf)
 			{
-				// FIXME
+				_db.rlogon(conf.user.c_str(), conf.password.c_str(), conf.database.c_str(), 1);
 			}
 
 			connection_handle_t::~connection_handle_t()

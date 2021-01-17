@@ -30,6 +30,9 @@
 #include <sqlpp11/skeleton/bind_result.h>
 #include "detail/prepared_statement_handle.h"
 
+#include <iso646.h>
+#include <string>
+
 
 namespace sqlpp
 {

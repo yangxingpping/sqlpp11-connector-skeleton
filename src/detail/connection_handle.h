@@ -30,6 +30,8 @@
 
 //#include <skeleton/skeleton.h> // native backend include
 
+#include "otl/otlv4.h"
+
 namespace sqlpp
 {
 	namespace skeleton
@@ -46,6 +48,10 @@ namespace sqlpp
 				connection_handle_t(connection_handle_t&&) = delete;
 				connection_handle_t& operator=(const connection_handle_t&) = delete;
 				connection_handle_t& operator=(connection_handle_t&&) = delete;
+
+				otl_connect _db; // connect object
+
+				connection_config _conf;
 			};
 		}
 	}

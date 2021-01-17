@@ -31,6 +31,8 @@ endif()
 
 project (sqlpp11-connector-sample)
 
+add_definitions(-DOTL_ODBC)
+
 find_package(Sqlpp11  REQUIRED)
 #find_package(otl  REQUIRED)
 

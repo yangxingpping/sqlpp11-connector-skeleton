@@ -29,6 +29,8 @@
 #include <sqlpp11/skeleton/char_result.h>
 #include "detail/result_handle.h"
 
+#include <string>
+
 
 namespace sqlpp
 {
