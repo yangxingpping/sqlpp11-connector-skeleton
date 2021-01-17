@@ -123,7 +123,21 @@ namespace sqlpp
 
 		std::string connection::escape(const std::string& s) const
 		{
-			return s; //fix me
+            std::string t;
+            size_t count(s.size());
+            for (auto c : s) {
+                if (c == '\'') {
+                    count++;
+                }
+            }
+            t.reserve(count);
+            for (auto c : s) {
+                if (c == '\'') {
+                    t.push_back(c);
+                }
+                t.push_back(c);
+            }
+            return t;
 		}
 
 		void connection::start_transaction()
