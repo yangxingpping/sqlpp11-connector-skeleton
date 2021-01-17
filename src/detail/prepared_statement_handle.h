@@ -24,11 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-#ifndef SQLPP_SKELETON_DETAIL_PREPARED_STATEMENT_HANDLE_H
-#define SQLPP_SKELETON_DETAIL_PREPARED_STATEMENT_HANDLE_H
-
-//#include <skeleton/skeleton.h>
+#pragma once
 
 #include <assert.h>
 
@@ -51,7 +47,14 @@ namespace sqlpp
 				size_t _no_params;
 				size_t _no_columns;
 
-				prepared_statement_handle_t(SKELETON_STMT stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_);
+				prepared_statement_handle_t(SKELETON_STMT stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_)
+				{
+                    assert(stmt);
+                    _skeleton_stmt = stmt;
+                    _debug = debug_;
+                    _no_params = no_of_parameters;
+                    _no_columns = no_of_columns;
+                }
 				prepared_statement_handle_t(const prepared_statement_handle_t&) = delete;
 				prepared_statement_handle_t(prepared_statement_handle_t&&) = default;
 				prepared_statement_handle_t& operator=(const prepared_statement_handle_t&) = delete;
@@ -72,19 +75,10 @@ namespace sqlpp
 				}
 			};
 
-            prepared_statement_handle_t::prepared_statement_handle_t(SKELETON_STMT stmt, size_t no_of_parameters, size_t no_of_columns, bool debug_)
-            {
-				assert(stmt);
-				_skeleton_stmt = stmt;
-				_debug = debug_;
-				_no_params = no_of_parameters;
-				_no_columns = no_of_columns;
-            }
-
         }
 	}
 }
 
-#endif
+
 
 

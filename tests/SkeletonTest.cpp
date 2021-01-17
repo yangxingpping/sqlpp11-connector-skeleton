@@ -23,7 +23,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "TabSample.h"
+#include "demo.h"
 #include <sqlpp11/sqlpp11.h>
 #include <sqlpp11/skeleton/skeleton.h>
 
@@ -50,7 +50,7 @@ int main()
 		std::cerr << "For testing, you'll need to create a database sqlpp_sample with a table tab_sample, as shown in tests/TabSample.sql" << std::endl;
 		throw;
 	}
-	skeleton::connection db(config);
+	/*skeleton::connection db(config);
 	db.execute(R"(DROP TABLE IF EXISTS tab_sample)");
 	db.execute(R"(CREATE TABLE tab_sample (
 			alpha bigint(20) AUTO_INCREMENT DEFAULT NULL,
@@ -61,20 +61,20 @@ int main()
 	db.execute(R"(DROP TABLE IF EXISTS tab_foo)");
 	db.execute(R"(CREATE TABLE tab_foo (
 		omega bigint(20) DEFAULT NULL
-			))");
+			))");*/
 
-	TabSample tab;
-	// clear the table
-	db(remove_from(tab).where(true));
+	//TabSample tab;
+	//// clear the table
+	//db(remove_from(tab).where(true));
 
-	db(insert_into(tab).default_values());
-	db(insert_into(tab).set(tab.gamma = true, tab.beta = "cheesecake"));
-	db(insert_into(tab).set(tab.gamma = true, tab.beta = "blueberry muffin"));
+	//db(insert_into(tab).default_values());
+	//db(insert_into(tab).set(tab.gamma = true, tab.beta = "cheesecake"));
+	//db(insert_into(tab).set(tab.gamma = true, tab.beta = "blueberry muffin"));
 
-	for(const auto& row : db(select(all_of(tab)).from(tab).where(true)))
-	{
-		std::cerr << "row.alpha: " << row.alpha << ", row.beta: " << row.beta << ", row.gamma: " << row.gamma <<  std::endl;
-	};
+	//for(const auto& row : db(select(all_of(tab)).from(tab).where(true)))
+	//{
+	//	std::cerr << "row.alpha: " << row.alpha << ", row.beta: " << row.beta << ", row.gamma: " << row.gamma <<  std::endl;
+	//};
 
 	return 0;
 }
