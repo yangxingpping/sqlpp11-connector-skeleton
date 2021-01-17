@@ -59,27 +59,56 @@ namespace sqlpp
 
 		void bind_result_t::_bind_integral_result(size_t index, int64_t* value, bool* is_null)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            if (_handle->_debug)
+                std::cerr << "odbc debug: binding integral result " << *value << " at index: " << index << std::endl;
+
+            *(_handle->_skeleton_stmt) >> *value;
+            if (_handle->_skeleton_stmt->is_null())
+            {
+                *is_null = true;
+            }
 		}
 
 		void bind_result_t::_bind_floating_point_result(size_t index, double* value, bool* is_null)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            if (_handle->_debug)
+                std::cerr << "odbc debug: binding float result " << *value << " at index: " << index << std::endl;
+
+            *(_handle->_skeleton_stmt) >> *value;
+            if (_handle->_skeleton_stmt->is_null())
+            {
+                *is_null = true;
+            }
 		}
 
 		void bind_result_t::_bind_text_result(size_t index, const char** value, size_t* len)
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			assert(value && len);
+			otl_long_string f2(*value, *len);
+
+            if (_handle->_debug)
+                std::cerr << "odbc debug: binding text result " << *value << " at index: " << index << std::endl;
+
+			*(_handle->_skeleton_stmt) >> f2;
+			*len = f2.len();
 		}
 
 		void bind_result_t::bind_impl()
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+            if (_handle->_debug)
+                std::cerr << "odbc debug: Binding results for handle at " << _handle.get() << std::endl;
+
+            
 		}
 
 		bool bind_result_t::next_impl()
 		{
-			throw std::runtime_error(std::string("missing code in ") +  __FILE__ + ", line " + std::to_string(__LINE__));
+			bool bret = false;
+			if(!_handle->_skeleton_stmt->eof())
+			{
+				bret = true;
+			}
+			return bret;
 		}
 	}
 }
