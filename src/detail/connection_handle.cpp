@@ -30,6 +30,8 @@
 #include <sqlpp11/skeleton/connection_config.h>
 #include "connection_handle.h"
 
+#include "otl/otlv4.h"
+
 namespace sqlpp
 {
 	namespace skeleton

@@ -32,6 +32,7 @@ endif()
 project (sqlpp11-connector-sample)
 
 find_package(Sqlpp11  REQUIRED)
+#find_package(otl  REQUIRED)
 
 #enable_testing()
 
