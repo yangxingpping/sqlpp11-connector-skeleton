@@ -44,7 +44,7 @@ namespace sqlpp
 
         void execute_statement(detail::connection_handle_t& handle, const std::string& statement)
         {
-            
+			handle._db.direct_exec(statement.c_str());
         }
 
 		connection::connection(connection_config config):
